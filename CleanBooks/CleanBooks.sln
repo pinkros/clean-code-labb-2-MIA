@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{BADDFF7F-C834-4A08-85E2-51A24DDBBBBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{D4EDE4DA-EF7A-48CA-8632-4F8349BE066A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServices", "{A261F09D-1EE7-45A9-B33F-FE709022C578}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{3AAD8875-6682-403F-9356-5DBA6C3A7CC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Common", "Domain\Domain.Common\Domain.Common\Domain.Common.csproj", "{35584A68-CE9E-4A3A-AD94-F818952A85AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AAD8875-6682-403F-9356-5DBA6C3A7CC6} = {A261F09D-1EE7-45A9-B33F-FE709022C578}
+		{35584A68-CE9E-4A3A-AD94-F818952A85AF} = {D4EDE4DA-EF7A-48CA-8632-4F8349BE066A}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35584A68-CE9E-4A3A-AD94-F818952A85AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35584A68-CE9E-4A3A-AD94-F818952A85AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35584A68-CE9E-4A3A-AD94-F818952A85AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35584A68-CE9E-4A3A-AD94-F818952A85AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
