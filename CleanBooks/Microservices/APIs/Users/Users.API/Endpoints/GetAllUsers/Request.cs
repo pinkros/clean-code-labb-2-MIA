@@ -1,6 +1,5 @@
-﻿namespace Users.API.Endpoints.GetAllUsers
+﻿namespace Users.API.Endpoints.GetAllUsers;
+
+public class Request
 {
-    public class Request
-    {
-    }
 }

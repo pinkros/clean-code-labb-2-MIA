@@ -1,6 +1,5 @@
-﻿namespace Users.API.Endpoints.AddUser
+﻿namespace Users.API.Endpoints.AddUser;
+
+public class Response
 {
-    public class Response
-    {
-    }
 }

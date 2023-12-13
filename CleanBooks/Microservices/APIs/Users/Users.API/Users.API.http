@@ -4,3 +4,12 @@ GET {{Users.API_HostAddress}}/
 Accept: application/json
 
 ###
+
+POST {{Users.API_HostAddress}}
+Content-Type: application/json
+
+{
+  "NewUser":{
+      "email" : "test@test.test"
+  }
+}
