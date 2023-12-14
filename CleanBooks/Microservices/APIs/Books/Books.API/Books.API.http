@@ -1,6 +1,14 @@
 @Books.API_HostAddress = http://localhost:5053
 
-GET {{Books.API_HostAddress}}/weatherforecast/
+GET {{Books.API_HostAddress}}/books
 Accept: application/json
 
 ###
+
+POST {{Books.API_HostAddress}}/books
+Content-Type: application/json
+
+{
+  "Name": "The Lord of the Rings",
+  "Author": "J.R.R. Tolkien"
+}
