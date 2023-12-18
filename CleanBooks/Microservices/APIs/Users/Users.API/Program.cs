@@ -1,4 +1,6 @@
 using FastEndpoints;
+using Microsoft.EntityFrameworkCore;
+using Users.DataAccess.Contexts;
 using Users.DataAccess.Repositories;
 using Users.DataAccess.Repositories.Interfaces;
 
@@ -11,6 +13,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddFastEndpoints();
+
+builder.Services.AddDbContext<UsersDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("UsersDb");
+    options.UseSqlServer(connectionString);
+});
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 

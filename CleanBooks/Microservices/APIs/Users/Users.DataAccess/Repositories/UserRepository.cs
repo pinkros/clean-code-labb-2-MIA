@@ -1,32 +1,53 @@
-﻿using Users.DataAccess.Models.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Users.DataAccess.Contexts;
+using Users.DataAccess.Models;
 using Users.DataAccess.Repositories.Interfaces;
 
 namespace Users.DataAccess.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(UsersDbContext context) : IUserRepository
 {
-    public Task<IUserModel> GetByIdAsync(Guid id)
+
+    public async Task<UserModel> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await context.Users.FindAsync(id);
     }
 
-    public Task<IEnumerable<IUserModel>> GetAllAsync()
+    public async Task<IEnumerable<UserModel>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await context.Users.ToListAsync();
     }
 
-    public Task AddAsync(IUserModel entity)
+    public async Task AddAsync(UserModel entity)
     {
-        throw new NotImplementedException();
+        var existing = await context.Users.FirstOrDefaultAsync(e => e.Email.Equals(entity.Email));
+
+        if (existing == null)
+        {
+            await context.Users.AddAsync(entity);
+            await context.SaveChangesAsync();
+        }
     }
 
-    public Task UpdateAsync(IUserModel entity)
+    public async Task UpdateAsync(UserModel entity)
     {
-        throw new NotImplementedException();
+        var existing = await context.Users.FindAsync(entity.Id);
+
+        if (existing != null)
+        {
+            context.Users.Remove(existing);
+            await context.SaveChangesAsync();
+        }
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var existing = await context.Users.FindAsync(id);
+
+        if (existing != null)
+        {
+            context.Users.Update(existing);
+            await context.SaveChangesAsync();
+        }
     }
 }
