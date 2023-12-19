@@ -18,5 +18,3 @@ app.UseHttpsRedirection();
 
 
 app.Run();
-
-

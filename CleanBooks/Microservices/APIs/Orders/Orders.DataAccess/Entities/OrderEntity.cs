@@ -1,11 +1,18 @@
 ﻿using Books.DataAccess.Repositories.Orders.DataAccess.Models.Interfaces;
 using Domain.Common.Interfaces.DataAccess;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Books.DataAccess.Repositories.Orders.DataAccess.Models;
 
-public class OrderModel : IOrderModel
+public class OrderEntity : IOrderEntity
 {
-    public Guid Id { get; }
+    [BsonId]
+    public ObjectId Id { get; }
+
+    [BsonElement]
     public string UserId { get; set; }
+
+    [BsonElement]
     public ICollection<string> Products { get; set; }
 }
