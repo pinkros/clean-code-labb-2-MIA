@@ -4,7 +4,7 @@ using Domain.Common.Interfaces.DataAccess;
 
 namespace Books.DataAccess.Repositories.Interfaces;
 
-public interface IBookRepository : IGenericRepository<IBookModel, Guid>
+public interface IBookRepository : IGenericRepository<BookModel, Guid>
 {
 
 }

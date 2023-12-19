@@ -8,30 +8,29 @@ namespace Books.DataAccess.Repositories;
 
 public class BookRepository(BooksDbContext context) : IBookRepository
 {
-    public async Task<IBookModel> GetByIdAsync(Guid id)
+    public async Task<BookModel> GetByIdAsync(Guid id)
     {
         return await context.Books.FindAsync(id);
     }
 
-    public async Task<IEnumerable<IBookModel>> GetAllAsync()
+    public async Task<IEnumerable<BookModel>> GetAllAsync()
     {
         return await context.Books.ToListAsync();
     }
 
-    public async Task AddAsync(IBookModel entity)
+    public async Task AddAsync(BookModel entity)
     {
         var existingBook = await context.Books.FirstOrDefaultAsync(b => b.Name == entity.Name);
         if (existingBook == null)
         {
-            await context.Books.AddAsync((BookModel)entity);
+            await context.Books.AddAsync(entity);
             await context.SaveChangesAsync();
         }
-        
     }
 
-    public async Task UpdateAsync(IBookModel entity)
+    public async Task UpdateAsync(BookModel entity)
     {
-        context.Books.Update((BookModel)entity);
+        context.Books.Update(entity);
         await context.SaveChangesAsync();
     }
 
@@ -40,7 +39,7 @@ public class BookRepository(BooksDbContext context) : IBookRepository
         var entity = await context.Books.FindAsync(id);
         if (entity != null)
         {
-            context.Books.Remove((BookModel)entity);
+            context.Books.Remove(entity);
             await context.SaveChangesAsync();
         }
     }

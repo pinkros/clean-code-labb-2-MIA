@@ -1,5 +1,4 @@
 ﻿using Books.DataAccess.Models.Interfaces;
-using Domain.Common.Interfaces.DataAccess;
 
 namespace Books.DataAccess.Models;
 
