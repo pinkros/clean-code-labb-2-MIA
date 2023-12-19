@@ -7,11 +7,11 @@ networks:
   gateways:
 
 services:
-  gateway:
-    image: ${DOCKER_REGISTRY-}gateways
+  cleanbooksgateway:
+    image: ${DOCKER_REGISTRY-}cleanbooksgateway
     build:
       context: .
-      dockerfile: Microservices/Gateways/Dockerfile
+      dockerfile: Microservices/Gateways/CleanBooksGateway/Dockerfile
     networks:
       - books
       - orders
@@ -22,8 +22,8 @@ services:
       - orders.api
       - users.api
     ports:
-      - "80:80"
-      - "443:443"
+      - "5000:8080"
+      - "5001:8081"
 
   books.api:
     image: ${DOCKER_REGISTRY-}booksapi
@@ -67,7 +67,7 @@ services:
       - DB_HOST=users.db
       - DB_DATABASE=UsersDb
       - DB_USER=sa
-      - DB_MSSQL_SA_PASSWORD=GodJul!fraanGruppMIA
+      - DB_MSSQL_SA_PASSWORD=GodJul!fraanGruppMIA123
 
   books.db:
     container_name: booksdb
@@ -93,6 +93,6 @@ services:
     ports:
       - "6002:1433"
     environment:
-      SA_PASSWORD: "GodJul!fraanGruppMIA"
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: "MIA"
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=GodJul!fraanGruppMIA123
+      - MSSQL_PID=Developer
