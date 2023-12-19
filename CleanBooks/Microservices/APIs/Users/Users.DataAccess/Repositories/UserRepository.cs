@@ -29,9 +29,9 @@ public class UserRepository(UsersDbContext context) : IUserRepository
         }
     }
 
-    public async Task UpdateAsync(UserModel entity)
+    public async Task UpdateAsync(UserModel entity, Guid id)
     {
-        var existing = await context.Users.FindAsync(entity.Id);
+        var existing = await context.Users.FindAsync(id);
 
         if (existing != null)
         {

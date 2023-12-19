@@ -37,9 +37,9 @@ public class BookRepository : IBookRepository
         await _collection.InsertOneAsync(entity);
     }
 
-    public async Task UpdateAsync(BookModel entity)
+    public async Task UpdateAsync(BookModel entity, ObjectId id)
     {
-        var filter = Builders<BookModel>.Filter.Eq("_id", entity.Id);
+        var filter = Builders<BookModel>.Filter.Eq("_id", id);
         await _collection.ReplaceOneAsync(filter, entity);
     }
 
