@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.DataAccess", "Microse
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.API", "Microservices\APIs\Users\Users.API\Users.API.csproj", "{F5F17AF8-13EF-4D86-A6A2-31D261D26F66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Books.API", "Microservices\APIs\Books\Books.API\Books.API.csproj", "{DA5410F3-AE5C-4C16-A02A-2432DBE1EAD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +55,6 @@ Global
 		{151CAB77-97E4-4617-A751-02E1DE2D2D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{151CAB77-97E4-4617-A751-02E1DE2D2D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{151CAB77-97E4-4617-A751-02E1DE2D2D26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5F17AF8-13EF-4D86-A6A2-31D261D26F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5F17AF8-13EF-4D86-A6A2-31D261D26F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5F17AF8-13EF-4D86-A6A2-31D261D26F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5F17AF8-13EF-4D86-A6A2-31D261D26F66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,7 +70,6 @@ Global
 		{86632450-F17C-446A-BCBA-A736A9D31FBB} = {CFDCCF76-391B-4C32-B5C6-9EAA754B06A9}
 		{886A733A-36D1-4773-B0F2-1FE7A344A737} = {43CC74D1-4C42-47CD-9E99-55AB39BED538}
 		{151CAB77-97E4-4617-A751-02E1DE2D2D26} = {9B1B10C2-2D4C-45BD-9C03-95A8A05B81AD}
-		{F5F17AF8-13EF-4D86-A6A2-31D261D26F66} = {9B1B10C2-2D4C-45BD-9C03-95A8A05B81AD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCAB5B09-7CA3-41FB-A410-42014F210759}
