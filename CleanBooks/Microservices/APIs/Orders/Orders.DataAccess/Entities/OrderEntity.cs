@@ -14,5 +14,5 @@ public class OrderEntity : IOrderEntity
     public string UserId { get; set; }
 
     [BsonElement]
-    public ICollection<string> Products { get; set; }
+    public ICollection<string> Books { get; set; }
 }

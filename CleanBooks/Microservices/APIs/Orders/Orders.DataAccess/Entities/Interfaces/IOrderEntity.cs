@@ -6,5 +6,5 @@ namespace Books.DataAccess.Repositories.Orders.DataAccess.Models.Interfaces;
 public interface IOrderEntity : IEntity<ObjectId>
 {
     string UserId { get; set; }
-    ICollection<string> Products { get; set; }
+    ICollection<string> Books { get; set; }
 }

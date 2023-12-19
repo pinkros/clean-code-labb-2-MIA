@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\GetAll\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Orders.DataAccess\Orders.DataAccess.csproj" />
   </ItemGroup>
 
