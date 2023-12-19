@@ -1,46 +1,51 @@
-﻿using Books.DataAccess.Contexts;
-using Books.DataAccess.Models;
-using Books.DataAccess.Models.Interfaces;
+﻿using Books.DataAccess.Models;
 using Books.DataAccess.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Books.DataAccess.Repositories;
 
-public class BookRepository(BooksDbContext context) : IBookRepository
+public class BookRepository : IBookRepository
 {
-    public async Task<BookModel> GetByIdAsync(Guid id)
+    private readonly IMongoCollection<BookModel> _collection;
+
+    public BookRepository()
     {
-        return await context.Books.FindAsync(id);
+        var hostname = Environment.GetEnvironmentVariable("DB_HOST");
+        var databaseName = Environment.GetEnvironmentVariable("DB_DATABASE");
+        var connectionString = $"mongodb://{hostname}:27017";
+
+        var client = new MongoClient(connectionString);
+        var database = client.GetDatabase(databaseName);
+        _collection = database.GetCollection<BookModel>("Questions", new MongoCollectionSettings() { AssignIdOnInsert = true });
+    }
+
+
+    public async Task<BookModel> GetByIdAsync(ObjectId id)
+    {
+        var filter = Builders<BookModel>.Filter.Eq("_id", id);
+        return await _collection.Find(filter).FirstOrDefaultAsync();
     }
 
     public async Task<IEnumerable<BookModel>> GetAllAsync()
     {
-        return await context.Books.ToListAsync();
+        return await _collection.Find(new BsonDocument()).ToListAsync();
     }
 
     public async Task AddAsync(BookModel entity)
     {
-        var existingBook = await context.Books.FirstOrDefaultAsync(b => b.Name == entity.Name);
-        if (existingBook == null)
-        {
-            await context.Books.AddAsync(entity);
-            await context.SaveChangesAsync();
-        }
+        await _collection.InsertOneAsync(entity);
     }
 
     public async Task UpdateAsync(BookModel entity)
     {
-        context.Books.Update(entity);
-        await context.SaveChangesAsync();
+        var filter = Builders<BookModel>.Filter.Eq("_id", entity.Id);
+        await _collection.ReplaceOneAsync(filter, entity);
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(ObjectId id)
     {
-        var entity = await context.Books.FindAsync(id);
-        if (entity != null)
-        {
-            context.Books.Remove(entity);
-            await context.SaveChangesAsync();
-        }
+        var filter = Builders<BookModel>.Filter.Eq("_id", id);
+        await _collection.DeleteOneAsync(filter);
     }
 }
