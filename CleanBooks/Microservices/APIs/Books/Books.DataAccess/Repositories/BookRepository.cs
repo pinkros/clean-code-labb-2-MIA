@@ -1,33 +1,47 @@
-﻿using Books.DataAccess.Models;
+﻿using Books.DataAccess.Contexts;
+using Books.DataAccess.Models;
 using Books.DataAccess.Models.Interfaces;
 using Books.DataAccess.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Books.DataAccess.Repositories;
 
-public class BookRepository : IBookRepository
+public class BookRepository(BooksDbContext context) : IBookRepository
 {
-    public Task<IBookModel> GetByIdAsync(string id)
+    public async Task<IBookModel> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await context.Books.FindAsync(id);
     }
 
-    public Task<IEnumerable<IBookModel>> GetAllAsync()
+    public async Task<IEnumerable<IBookModel>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await context.Books.ToListAsync();
     }
 
-    public Task AddAsync(IBookModel entity)
+    public async Task AddAsync(IBookModel entity)
     {
-        throw new NotImplementedException();
+        var existingBook = await context.Books.FirstOrDefaultAsync(b => b.Name == entity.Name);
+        if (existingBook == null)
+        {
+            await context.Books.AddAsync((BookModel)entity);
+            await context.SaveChangesAsync();
+        }
+        
     }
 
-    public Task UpdateAsync(IBookModel entity)
+    public async Task UpdateAsync(IBookModel entity)
     {
-        throw new NotImplementedException();
+        context.Books.Update((BookModel)entity);
+        await context.SaveChangesAsync();
     }
 
-    public Task DeleteAsync(string id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var entity = await context.Books.FindAsync(id);
+        if (entity != null)
+        {
+            context.Books.Remove((BookModel)entity);
+            await context.SaveChangesAsync();
+        }
     }
 }
