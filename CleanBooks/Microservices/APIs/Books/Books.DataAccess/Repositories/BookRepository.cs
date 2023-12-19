@@ -17,7 +17,7 @@ public class BookRepository : IBookRepository
 
         var client = new MongoClient(connectionString);
         var database = client.GetDatabase(databaseName);
-        _collection = database.GetCollection<BookModel>("Questions", new MongoCollectionSettings() { AssignIdOnInsert = true });
+        _collection = database.GetCollection<BookModel>("Books", new MongoCollectionSettings() { AssignIdOnInsert = true });
     }
 
 
