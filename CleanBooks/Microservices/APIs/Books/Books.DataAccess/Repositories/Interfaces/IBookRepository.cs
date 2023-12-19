@@ -1,10 +1,10 @@
 ﻿using Books.DataAccess.Models;
-using Books.DataAccess.Models.Interfaces;
 using Domain.Common.Interfaces.DataAccess;
+using MongoDB.Bson;
 
 namespace Books.DataAccess.Repositories.Interfaces;
 
-public interface IBookRepository : IGenericRepository<IBookModel, string>
+public interface IBookRepository : IGenericRepository<BookModel, ObjectId>
 {
 
 }

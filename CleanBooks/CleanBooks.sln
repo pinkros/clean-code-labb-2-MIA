@@ -29,6 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orders.DataAccess", "Micros
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.DataAccess", "Microservices\APIs\Users\Users.DataAccess\Users.DataAccess.csproj", "{151CAB77-97E4-4617-A751-02E1DE2D2D26}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.API", "Microservices\APIs\Users\Users.API\Users.API.csproj", "{F5F17AF8-13EF-4D86-A6A2-31D261D26F66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Books.API", "Microservices\APIs\Books\Books.API\Books.API.csproj", "{DA5410F3-AE5C-4C16-A02A-2432DBE1EAD3}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.API", "Microservices\APIs\Orders\Orders.API\Orders.API.csproj", "{95ACB087-87D9-4846-9519-BE30935F18DE}"
 EndProject
 Global
