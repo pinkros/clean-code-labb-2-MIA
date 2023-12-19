@@ -1,13 +1,18 @@
+using FastEndpoints;
+using Orders.DataAccess.Repositories;
+using Orders.DataAccess.Repositories.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddFastEndpoints();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -16,5 +21,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseFastEndpoints();
 
 app.Run();

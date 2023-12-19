@@ -1,4 +1,4 @@
-﻿using Books.DataAccess.Repositories.Orders.DataAccess.Models.Interfaces;
+﻿using Books.DataAccess.Repositories.Orders.DataAccess.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Orders.DataAccess.Repositories.Interfaces;
@@ -7,46 +7,46 @@ namespace Orders.DataAccess.Repositories;
 
 public class OrderRepository : IOrderRepository
 {
-    private readonly IMongoCollection<IOrderEntity> _collection;
+    private readonly IMongoCollection<OrderEntity> _collection;
 
     public OrderRepository()
     {
-        var hostname = "localhost";
-        var databaseName = "cleanBooksDb";
+        var hostname = Environment.GetEnvironmentVariable("DB_HOST");
+        var databaseName = Environment.GetEnvironmentVariable("DB_DATABASE");
         var connectionString = $"mongodb://{hostname}:27017";
 
         var client = new MongoClient(connectionString);
         var database = client.GetDatabase(databaseName);
-        _collection = database.GetCollection<IOrderEntity>("orders", new MongoCollectionSettings() { AssignIdOnInsert = true });
+        _collection = database.GetCollection<OrderEntity>("Orders", new MongoCollectionSettings() { AssignIdOnInsert = true });
     }
 
 
-    public async Task<IOrderEntity?> GetByIdAsync(ObjectId id)
+    public async Task<OrderEntity?> GetByIdAsync(ObjectId id)
     {
         var result = await _collection.FindAsync(o => o.Id == id);
         return result.ToEnumerable().FirstOrDefault();
     }
 
-    public async Task<IEnumerable<IOrderEntity>> GetAllAsync()
+    public async Task<IEnumerable<OrderEntity>> GetAllAsync()
     {
         var result = await _collection.FindAsync(_ => true);
         return result.ToEnumerable();
     }
 
-    public async Task AddAsync(IOrderEntity entity)
+    public async Task AddAsync(OrderEntity entity)
     { 
         await _collection.InsertOneAsync(entity);
     }
 
-    public async Task UpdateAsync(IOrderEntity entity, ObjectId id)
+    public async Task UpdateAsync(OrderEntity entity, ObjectId id)
     {
-        var filter = Builders<IOrderEntity>.Filter.Eq("Id", id);
+        var filter = Builders<OrderEntity>.Filter.Eq("Id", id);
         await _collection.ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = true });
     }
 
     public async Task DeleteAsync(ObjectId id)
     {
-        var filter = Builders<IOrderEntity>.Filter.Eq("Id", id);
+        var filter = Builders<OrderEntity>.Filter.Eq("Id", id);
         await _collection.FindOneAndDeleteAsync(filter);
     }
 }
