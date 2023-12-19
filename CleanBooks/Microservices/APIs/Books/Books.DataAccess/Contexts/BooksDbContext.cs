@@ -9,6 +9,6 @@ public class BooksDbContext : DbContext
     {
     }
 
-    public DbSet<BookModel> Books { get; set; } = null!;
+    public DbSet<BookModel> Books { get; set; }
 
 }
