@@ -8,7 +8,7 @@ namespace Users.DataAccess.Repositories;
 public class UserRepository(UsersDbContext context) : IUserRepository
 {
 
-    public async Task<UserModel> GetByIdAsync(Guid id)
+    public async Task<UserModel?> GetByIdAsync(Guid id)
     {
         return await context.Users.FindAsync(id);
     }

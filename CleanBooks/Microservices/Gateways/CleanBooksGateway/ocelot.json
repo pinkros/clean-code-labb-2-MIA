@@ -1,0 +1,43 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/books",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "books.api",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/"
+    },
+    {
+      "UpstreamPathTemplate": "/orders",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orders.api",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/"
+    },
+    {
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "users.api",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/"
+    }
+  ],
+"GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}

@@ -21,7 +21,7 @@ public class BookRepository : IBookRepository
     }
 
 
-    public async Task<BookModel> GetByIdAsync(ObjectId id)
+    public async Task<BookModel?> GetByIdAsync(ObjectId id)
     {
         var filter = Builders<BookModel>.Filter.Eq("_id", id);
         return await _collection.Find(filter).FirstOrDefaultAsync();
