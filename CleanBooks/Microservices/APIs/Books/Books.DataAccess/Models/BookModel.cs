@@ -5,7 +5,7 @@ namespace Books.DataAccess.Models;
 
 public class BookModel : IBookModel
 {
-    public ObjectId Id { get; }
+    public ObjectId Id { get; init; }
     public string Name { get; init; }
     public string Author { get; init; }
 }
