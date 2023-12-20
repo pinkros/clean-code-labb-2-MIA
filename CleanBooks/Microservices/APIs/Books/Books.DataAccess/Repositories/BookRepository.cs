@@ -1,33 +1,51 @@
 ﻿using Books.DataAccess.Models;
-using Books.DataAccess.Models.Interfaces;
 using Books.DataAccess.Repositories.Interfaces;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Books.DataAccess.Repositories;
 
 public class BookRepository : IBookRepository
 {
-    public Task<IBookModel> GetByIdAsync(string id)
+    private readonly IMongoCollection<BookModel> _collection;
+
+    public BookRepository()
     {
-        throw new NotImplementedException();
+        var hostname = Environment.GetEnvironmentVariable("DB_HOST");
+        var databaseName = Environment.GetEnvironmentVariable("DB_DATABASE");
+        var connectionString = $"mongodb://{hostname}:27017";
+
+        var client = new MongoClient(connectionString);
+        var database = client.GetDatabase(databaseName);
+        _collection = database.GetCollection<BookModel>("Books", new MongoCollectionSettings() { AssignIdOnInsert = true });
     }
 
-    public Task<IEnumerable<IBookModel>> GetAllAsync()
+
+    public async Task<BookModel?> GetByIdAsync(ObjectId id)
     {
-        throw new NotImplementedException();
+        var filter = Builders<BookModel>.Filter.Eq("_id", id);
+        return await _collection.Find(filter).FirstOrDefaultAsync();
     }
 
-    public Task AddAsync(IBookModel entity)
+    public async Task<IEnumerable<BookModel>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _collection.Find(new BsonDocument()).ToListAsync();
     }
 
-    public Task UpdateAsync(IBookModel entity)
+    public async Task AddAsync(BookModel entity)
     {
-        throw new NotImplementedException();
+        await _collection.InsertOneAsync(entity);
     }
 
-    public Task DeleteAsync(string id)
+    public async Task UpdateAsync(BookModel entity, ObjectId id)
     {
-        throw new NotImplementedException();
+        var filter = Builders<BookModel>.Filter.Eq("_id", id);
+        await _collection.ReplaceOneAsync(filter, entity);
+    }
+
+    public async Task DeleteAsync(ObjectId id)
+    {
+        var filter = Builders<BookModel>.Filter.Eq("_id", id);
+        await _collection.DeleteOneAsync(filter);
     }
 }

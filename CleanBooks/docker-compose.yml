@@ -1,0 +1,98 @@
+version: '3.4'
+
+networks:
+  books:
+  orders:
+  users:
+  gateways:
+
+services:
+  cleanbooksgateway:
+    image: ${DOCKER_REGISTRY-}cleanbooksgateway
+    build:
+      context: .
+      dockerfile: Microservices/Gateways/CleanBooksGateway/Dockerfile
+    networks:
+      - books
+      - orders
+      - users
+      - gateways
+    depends_on:
+      - books.api
+      - orders.api
+      - users.api
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+
+  books.api:
+    image: ${DOCKER_REGISTRY-}booksapi
+    build:
+      context: .
+      dockerfile: Microservices/APIs/Books/Books.API/Dockerfile
+    depends_on:
+      - books.db
+    networks:
+      - books
+      - gateways
+    environment:
+      - DB_HOST=books.db
+      - DB_DATABASE=BooksDb
+
+  orders.api:
+    image: ${DOCKER_REGISTRY-}ordersapi
+    build:
+      context: .
+      dockerfile: Microservices/APIs/Orders/Orders.API/Dockerfile
+    depends_on:
+      - orders.db
+    networks:
+      - orders
+      - gateways
+    environment:
+      - DB_HOST=orders.db
+      - DB_DATABASE=OrdersDb
+
+  users.api:
+    image: ${DOCKER_REGISTRY-}usersapi
+    build:
+      context: .
+      dockerfile: Microservices/APIs/Users/Users.API/Dockerfile
+    networks:
+      - users
+      - gateways
+    depends_on:
+      - users.db
+    environment:
+      - DB_HOST=users.db
+      - DB_DATABASE=UsersDb
+      - DB_USER=sa
+      - DB_MSSQL_SA_PASSWORD=Pwd123!!1
+
+  books.db:
+    container_name: booksdb
+    image: mongo:latest
+    networks:
+      - books
+    ports:
+      - "6000:27017"
+
+  orders.db:
+    container_name: ordersdb
+    image: mongo:latest
+    networks:
+      - orders
+    ports:
+      - "6001:27017"
+
+  users.db:
+    container_name: usersdb
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      - users
+    ports:
+      - "6002:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pwd123!!1
+      - MSSQL_PID=Developer
