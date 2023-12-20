@@ -8,7 +8,7 @@ namespace Books.DataAccess.Repositories.Orders.DataAccess.Models;
 public class OrderEntity : IOrderEntity
 {
     [BsonId]
-    public ObjectId Id { get; }
+    public ObjectId Id { get; init; }
 
     [BsonElement]
     public string UserId { get; set; }
