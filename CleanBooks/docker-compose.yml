@@ -67,7 +67,7 @@ services:
       - DB_HOST=users.db
       - DB_DATABASE=UsersDb
       - DB_USER=sa
-      - DB_MSSQL_SA_PASSWORD=GodJul!fraanGruppMIA123
+      - DB_MSSQL_SA_PASSWORD=Pwd123!!1
 
   books.db:
     container_name: booksdb
@@ -94,5 +94,5 @@ services:
       - "6002:1433"
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=GodJul!fraanGruppMIA123
+      - SA_PASSWORD=Pwd123!!1
       - MSSQL_PID=Developer
